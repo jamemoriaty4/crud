@@ -40,24 +40,57 @@ public class ProductImplement implements IDesignProduct {
     @Override
     public void updateProduct() throws ParseException {
         System.out.println("nhap vào id can thay doi");
-        int id = InputMethods.getInteger();
+        String id = InputMethods.getString();
 
-        productList.get(id).inputData(false, true);
+        Product productEdit = findById(id);
+
+        if (productEdit==null){
+            System.err.println("id  ko tìm thấy");
+        }else {
+            System.out.println("Thông tin cũ là ");
+            productEdit.displayData();
+            System.out.println("Nhập thông tin mơi");
+            productEdit.inputData(false ,true);
+            System.out.println("đã cap nhạt thành cong");
+        }
+    }
+
+    private Product findById(String id){
+        for (Product p:productList){
+            if (p.getProductId().equals(id)){
+                return p;
+            }
+        }
+        return null;
     }
 
     @Override
     public void deleteProduct() {
         System.out.println("nhap vào id can xoa");
-        int id = InputMethods.getInteger();
-        productList.remove(id);
-        System.out.println("xoá thành công");
+        String id = InputMethods.getString();
+
+        Product productEdit = findById(id);
+        if (productEdit==null){
+            System.err.println("id  ko tìm thấy");
+        }else {
+            productList.remove(id);
+            System.out.println("xoá thành công");
+        }
+
     }
 
     @Override
     public void findProductByID() {
         System.out.println("nhap vào id can tim kiem");
-        int id = InputMethods.getInteger();
-        productList.get(id);
+        System.out.println("nhap vào id can xoa");
+        String id = InputMethods.getString();
+
+        Product productEdit = findById(id);
+        if (productEdit==null){
+            System.err.println("id  ko tìm thấy");
+        }else {
+            productEdit.displayData();
+        }
     }
 
     @Override
